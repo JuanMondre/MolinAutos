@@ -3,13 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MolinAutos - Concesionario de Confianza</title>
+    <title>MolinAutos - Búsqueda de Vehículos</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
     <link href="styles.css" rel="stylesheet">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
-    
+    <link href="busqueda.css" rel="stylesheet">
 </head>
 <body>
     <header>
@@ -30,7 +28,7 @@
                             <a class="nav-link" href="autos.html"><i class="bi bi-car-front" aria-hidden="true"></i> <span>Autos</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="busqueda.html"><i class="bi bi-search" aria-hidden="true"></i> <span>Búsquedas</span></a>
+                            <a class="nav-link active" href="busquedas.html"><i class="bi bi-search" aria-hidden="true"></i> <span>Búsquedas</span></a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="contacto.html"><i class="bi bi-telephone" aria-hidden="true"></i> <span>Contacto</span></a>
@@ -42,43 +40,86 @@
     </header>
 
     <main>
+        <div class="container my-5">
+            <h1 class="text-center mb-5">Búsqueda de Vehículos</h1>
+            <div class="row justify-content-center">
+                <div class="col-lg-2 d-none d-lg-block">
+                    <img src="img\images.gif?height=600&width=160" alt="GIF izquierdo" class="img-fluid sticky-top" style="top: 20px;">
+                </div>
+                <div class="col-lg-8">
+                    <form id="busqueda-form" class="busqueda-form">
+                        <div class="form-group">
+                            <label for="estado">Estado</label>
+                            <select type="text" id="estado" name="estado" required>
+                                <option value="nuevo">Nuevo</option>
+                                <option value="usado">Usado</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="marca">Marca</label>
+                            <input type="text" id="marca" name="marca" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="modelo">Modelo</label>
+                            <input type="text" id="modelo" name="modelo" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="version">Versión</label>
+                            <input type="text" id="version" name="version">
+                        </div>
+                        <div class="form-group">
+                            <label for="ano">Año</label>
+                            <input type="number" id="ano" name="ano" min="1900" max="2099" step="1" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="moneda">Moneda</label>
+                            <select id="moneda" name="moneda" required>
+                                <option value="ARS">ARS</option>
+                                <option value="USD">USD</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="km">Km.</label>
+                            <input type="number" id="km" name="km" min="0" step="1" required>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Buscar</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-lg-2 d-none d-lg-block">
+                    <img src="img\images.gif?height=600&width=160" alt="GIF derecho" class="img-fluid sticky-top" style="top: 20px;">
+                </div>
+            </div>
+        </div>
     </main>
 
     <footer class="bg-dark text-white py-4">
         <div class="container">
-          <div class="row">
-            <div class="col-md-4 mb-3 mb-md-0">
-              <h3>Contacto</h3>
-              <ul class="list-unstyled">
-                <li><a href="https://wa.me/5492645051543" class="text-white"><i class="fab fa-whatsapp"></i> +54 264 505-1543</a></li>
-                <li><a href="tel:02644288400" class="text-white"><i class="fas fa-phone-alt"></i> 0264 428-8400</a></li>
-                <li><a href="mailto:molinaautosj@hotmail.com" class="text-white"><i class="fas fa-envelope"></i> molinaautosj@hotmail.com</a></li>
-              </ul>
+            <div class="row">
+                <div class="col-md-4 mb-3 mb-md-0">
+                    <h3>Contacto</h3>
+                    <p>WhatsApp: <a href="https://wa.me/5492645051543" class="text-white">+54 264 505-1543</a></p>
+                    <p>Teléfono: <a href="tel:02644288400" class="text-white">0264 428-8400</a></p>
+                    <p>Email: <a href="mailto:molinaautosj@hotmail.com" class="text-white">molinaautosj@hotmail.com</a></p>
+                </div>
+                <div class="col-md-4 mb-3 mb-md-0">
+                    <h3>Dirección</h3>
+                    <p>Mendoza 1350 Sur</p>
+                    <p>Rawson, San Juan - Argentina</p>
+                </div>
+                <div class="col-md-4">
+                    <h3>Horario</h3>
+                    <p>Lunes a Viernes: 9:00 AM - 13:00 PM y 17:00 PM - 21:00 PM</p>
+                    <p>Sábados: 10:00 AM - 2:00 PM</p>
+                </div>
             </div>
-            <div class="col-md-4 mb-3 mb-md-0">
-              <h3>Dirección</h3>
-              <address>
-                <i class="fas fa-map-marker-alt"></i>
-                Mendoza 1350 Sur<br>
-                Rawson, San Juan - Argentina
-              </address>
+            <hr>
+            <div class="text-center mt-3">
+                <p>&copy; 2023 Concesionario MolinAutos. Todos los derechos reservados.</p>
             </div>
-            <div class="col-md-4">
-              <h3>Horario</h3>
-              <ul>
-                <li>Lunes a Viernes:</li>
-                <li>Mañana 9:00 AM - 13:00 PM</li>
-                <li>Tarde 17:00 PM - 21:00 PM</li>
-                <li>Sábados: 10:00 AM - 2:00 PM</li>
-              </ul>
-            </div>
-          </div>
-          <hr>
-          <div class="text-center mt-3">
-            <p>&copy; 2023 Concesionario MolinAutos. Todos los derechos reservados.</p>
-          </div>
         </div>
-      </footer>
+    </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

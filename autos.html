@@ -3,13 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MolinAutos - Concesionario de Confianza</title>
+    <title>MolinAutos - Nuestros Vehículos</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
-    <link href="styles.css" rel="stylesheet">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
-    
+    <link href="autos.css" rel="stylesheet">
 </head>
 <body>
     <header>
@@ -27,7 +24,7 @@
                             <a class="nav-link" href="index.html"><i class="bi bi-house-door" aria-hidden="true"></i> <span>Inicio</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="autos.html"><i class="bi bi-car-front" aria-hidden="true"></i> <span>Autos</span></a>
+                            <a class="nav-link active" href="autos.html"><i class="bi bi-car-front" aria-hidden="true"></i> <span>Autos</span></a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="busqueda.html"><i class="bi bi-search" aria-hidden="true"></i> <span>Búsquedas</span></a>
@@ -41,44 +38,164 @@
         </nav>
     </header>
 
-    <main></main>
-        
+    <main>
+        <section class="py-5">
+            <div class="container">
+                <h1 class="text-center mb-5">Nuestros Vehículos</h1>
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                    <!-- Vehicle Card 1 -->
+                    <div class="col">
+                        <div class="card h-100">
+                            <div id="carouselVehicle1" class="carousel slide" data-bs-ride="carousel">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <img src="img/cronos1.jpg?height=300&width=400" class="d-block w-100" alt="Vehículo 1 - Vista frontal">
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="img/cronos2.jpg?height=300&width=400" class="d-block w-100" alt="Vehículo 1 - Vista lateral">
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="img/cronos3.jpg?height=300&width=400" class="d-block w-100" alt="Vehículo 1 - Interior">
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="img/cronos4.jpg?height=300&width=400" class="d-block w-100" alt="Vehículo 1 - Interior">
+                                    </div>
+                                </div>
+                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselVehicle1" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Anterior</span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#carouselVehicle1" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Siguiente</span>
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                <h2 class="card-title">Fiat Cronos 2023-1.3 Presicion </h2>
+                                <p class="card-text">Sedán compacto con excelente economía de combustible y tecnología avanzada. Perfecto para la ciudad y viajes largos.</p>
+                                <ul class="list-unstyled">
+                                    <li><strong>Motor:</strong> 2.0L 4-cilindros</li>
+                                    <li><strong>Transmisión:</strong> Automática CVT</li>
+                                    <li><strong>Rendimiento:</strong> 13 km/l en ciudad, 17 km/l en carretera</li>
+                                    <li><strong>Características:</strong> Apple CarPlay, Android Auto, cámara de reversa</li>
+                                </ul>
+                                <a href="#" class="btn btn-primary">Ver detalles</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Vehicle Card 2 -->
+                    <div class="col">
+                        <div class="card h-100">
+                            <div id="carouselVehicle2" class="carousel slide" data-bs-ride="carousel">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <img src="img/etios1.jpg?height=300&width=400" class="d-block w-100" alt="Vehículo 2 - Vista frontal">
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="img/etios2.jpg?height=300&width=400" class="d-block w-100" alt="Vehículo 2 - Vista lateral">
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="img/etios3.jpg?height=300&width=400" class="d-block w-100" alt="Vehículo 2 - Interior">
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="img/etios4.jpg?height=300&width=400" class="d-block w-100" alt="Vehículo 2 - Interior">
+                                    </div>
+                                </div>
+                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselVehicle2" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Anterior</span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#carouselVehicle2" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Siguiente</span>
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                <h2 class="card-title">Toyota Etios 2017</h2>
+                                <p class="card-text">Versátil con amplio espacio interior y características de seguridad avanzadas. Ideal para familias.</p>
+                                <ul class="list-unstyled">
+                                    <li><strong>Motor:</strong> 1.5L Turbo 4-cilindros</li>
+                                    <li><strong>Transmisión:</strong> CVT con tracción en las cuatro ruedas</li>
+                                    <li><strong>Rendimiento:</strong> 11 km/l en ciudad, 14 km/l en carretera</li>
+                                    <li><strong>Características:</strong> Honda Sensing, techo panorámico, asientos de cuero</li>
+                                </ul>
+                                <a href="#" class="btn btn-primary">Ver detalles</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Vehicle Card 3 -->
+                    <div class="col">
+                        <div class="card h-100">
+                            <div id="carouselVehicle3" class="carousel slide" data-bs-ride="carousel">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <img src="img\pulse1.jpg?height=300&width=400" class="d-block w-100" alt="Vehículo 3 - Vista frontal">
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="img\pulse2.jpg?height=300&width=400" class="d-block w-100" alt="Vehículo 3 - Vista lateral">
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="img\pulse3.jpg?height=300&width=400" class="d-block w-100" alt="Vehículo 3 - Interior">
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="img\pulse4.jpg?height=300&width=400" class="d-block w-100" alt="Vehículo 3 - Interior">
+                                    </div>
+                                </div>
+                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselVehicle3" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Anterior</span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#carouselVehicle3" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Siguiente</span>
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                <h2 class="card-title">Fiat Pulse 2022 Drive</h2>
+                                <p class="card-text">Potente rendimiento y diseño deportivo. Perfecto para entusiastas de la velocidad y el estilo.</p>
+                                <ul class="list-unstyled">
+                                    <li><strong>Motor:</strong> 3.0L </li>
+                                    <li><strong>Transmisión:</strong> Manual de 6 velocidades</li>
+                                    <li><strong>Rendimiento:</strong> 7 km/l en ciudad, 10 km/l en carretera</li>
+                                    <li><strong>Características:</strong> Modos de manejo seleccionables, sistema de sonido premium, asientos deportivos</li>
+                                </ul>
+                                <a href="#" class="btn btn-primary">Ver detalles</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
 
     <footer class="bg-dark text-white py-4">
         <div class="container">
-          <div class="row">
-            <div class="col-md-4 mb-3 mb-md-0">
-              <h3>Contacto</h3>
-              <ul class="list-unstyled">
-                <li><a href="https://wa.me/5492645051543" class="text-white"><i class="fab fa-whatsapp"></i> +54 264 505-1543</a></li>
-                <li><a href="tel:02644288400" class="text-white"><i class="fas fa-phone-alt"></i> 0264 428-8400</a></li>
-                <li><a href="mailto:molinaautosj@hotmail.com" class="text-white"><i class="fas fa-envelope"></i> molinaautosj@hotmail.com</a></li>
-              </ul>
+            <div class="row">
+                <div class="col-md-4 mb-3 mb-md-0">
+                    <h3>Contacto</h3>
+                    <p>WhatsApp: <a href="https://wa.me/5492645051543" class="text-white">+54 264 505-1543</a></p>
+                    <p>Teléfono: <a href="tel:02644288400" class="text-white">0264 428-8400</a></p>
+                    <p>Email: <a href="mailto:molinaautosj@hotmail.com" class="text-white">molinaautosj@hotmail.com</a></p>
+                </div>
+                <div class="col-md-4 mb-3 mb-md-0">
+                    <h3>Dirección</h3>
+                    <p>Mendoza 1350 Sur</p>
+                    <p>Rawson, San Juan - Argentina</p>
+                </div>
+                <div class="col-md-4">
+                    <h3>Horario</h3>
+                    <p>Lunes a Viernes: 9:00 AM - 13:00 PM y 17:00 PM - 21:00 PM</p>
+                    <p>Sábados: 10:00 AM - 2:00 PM</p>
+                </div>
             </div>
-            <div class="col-md-4 mb-3 mb-md-0">
-              <h3>Dirección</h3>
-              <address>
-                <i class="fas fa-map-marker-alt"></i>
-                Mendoza 1350 Sur<br>
-                Rawson, San Juan - Argentina
-              </address>
+            <hr>
+            <div class="text-center mt-3">
+                <p>&copy; 2024 Concesionario MolinAutos. Todos los derechos reservados.</p>
             </div>
-            <div class="col-md-4">
-              <h3>Horario</h3>
-              <ul>
-                <li>Lunes a Viernes:</li>
-                <li>Mañana 9:00 AM - 13:00 PM</li>
-                <li>Tarde 17:00 PM - 21:00 PM</li>
-                <li>Sábados: 10:00 AM - 2:00 PM</li>
-              </ul>
-            </div>
-          </div>
-          <hr>
-          <div class="text-center mt-3">
-            <p>&copy; 2023 Concesionario MolinAutos. Todos los derechos reservados.</p>
-          </div>
         </div>
-      </footer>
+    </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
