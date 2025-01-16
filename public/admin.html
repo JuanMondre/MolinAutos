@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestión de Autos</title>
+  <script src="crud.js" defer></script>
+</head>
+<body>
+  <h1>Gestión de Autos</h1>
+
+  <!-- Formulario para agregar/editar autos -->
+  <form id="autoForm">
+    <input type="text" id="marca" placeholder="Marca" required />
+    <input type="text" id="modelo" placeholder="Modelo" required />
+    <input type="text" id="version" placeholder="Versión" />
+    <input type="number" id="año" placeholder="Año" required />
+    <input type="number" id="km" placeholder="Kilómetros" required />
+    <select id="estado">
+      <option value="usado">Usado</option>
+      <option value="nuevo">Nuevo</option>
+    </select>
+    <input type="text" id="color" placeholder="Color" required />
+    <select id="combustible">
+      <option value="nafta">Nafta</option>
+      <option value="diesel">Diesel</option>
+    </select>
+    <input type="number" id="precio" placeholder="Precio" required />
+    <button type="submit">Guardar</button>
+  </form>
+
+  <!-- Tabla para mostrar autos -->
+  <table border="1">
+    <thead>
+      <tr>
+        <th>Marca</th>
+        <th>Modelo</th>
+        <th>Año</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody id="autosTable"></tbody>
+  </table>
+
+  <script>
+    const autoForm = document.getElementById('autoForm');
+    const autosTable = document.getElementById('autosTable');
+    let editingAutoId = null;
+
+    // Cargar todos los autos
+    const loadAutos = async () => {
+      try {
+        const response = await fetch('/api/autos');
+        const autos = await response.json();
+        autosTable.innerHTML = autos.map(auto => `
+          <tr data-id="${auto._id}" data-marca="${auto.marca}" data-modelo="${auto.modelo}" data-año="${auto.año}">
+            <td>${auto.marca}</td>
+            <td>${auto.modelo}</td>
+            <td>${auto.año}</td>
+            <td>
+              <button onclick="editAuto('${auto._id}')">Editar</button>
+              <button onclick="deleteAuto('${auto._id}')">Eliminar</button>
+            </td>
+          </tr>
+        `).join('');
+      } catch (error) {
+        console.error('Error al cargar los autos:', error);
+      }
+    };
+
+    // Crear un nuevo auto
+    const createAuto = async (auto) => {
+      try {
+        const response = await fetch('/api/autos', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(auto),
+        });
+        if (!response.ok) throw new Error('Error al crear el auto');
+        return await response.json();
+      } catch (error) {
+        console.error('Error al crear el auto:', error);
+        alert('No se pudo crear el auto. Revisa la consola para más detalles.');
+      }
+    };
+
+    // Actualizar un auto existente
+    const updateAuto = async (id, auto) => {
+      try {
+        const response = await fetch(`/api/autos/${id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(auto),
+        });
+        if (!response.ok) throw new Error('Error al actualizar el auto');
+        return await response.json();
+      } catch (error) {
+        console.error('Error al actualizar el auto:', error);
+      }
+    };
+
+    // Eliminar un auto
+    const deleteAuto = async (id) => {
+      try {
+        const response = await fetch(`/api/autos/${id}`, { method: 'DELETE' });
+        if (!response.ok) throw new Error('Error al eliminar el auto');
+        loadAutos();
+      } catch (error) {
+        console.error('Error al eliminar el auto:', error);
+      }
+    };
+
+    // Editar un auto
+    const editAuto = (id) => {
+      editingAutoId = id;
+      const row = document.querySelector(`[data-id="${id}"]`);
+      document.getElementById('marca').value = row.dataset.marca;
+      document.getElementById('modelo').value = row.dataset.modelo;
+      document.getElementById('año').value = row.dataset.año;
+    };
+
+    // Manejo del formulario
+    autoForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const auto = {
+        marca: document.getElementById('marca').value,
+        modelo: document.getElementById('modelo').value,
+        version: document.getElementById('version').value,
+        año: parseInt(document.getElementById('año').value, 10),
+        km: parseInt(document.getElementById('km').value, 10),
+        estado: document.getElementById('estado').value,
+        color: document.getElementById('color').value,
+        combustible: document.getElementById('combustible').value,
+        precio: parseFloat(document.getElementById('precio').value),
+      };
+
+      if (editingAutoId) {
+        await updateAuto(editingAutoId, auto);
+        editingAutoId = null;
+      } else {
+        await createAuto(auto);
+      }
+
+      autoForm.reset();
+      loadAutos();
+    });
+
+    window.onload = loadAutos;
+  </script>
+</body>
+</html>
