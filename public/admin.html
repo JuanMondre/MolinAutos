@@ -4,43 +4,64 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gestión de Autos</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <script src="crud.js" defer></script>
 </head>
 <body>
-  <h1>Gestión de Autos</h1>
+  <div class="container mt-5">
+    <h1>Gestión de Autos</h1>
 
-  <!-- Formulario para agregar/editar autos -->
-  <form id="autoForm">
-    <input type="text" id="marca" placeholder="Marca" required />
-    <input type="text" id="modelo" placeholder="Modelo" required />
-    <input type="text" id="version" placeholder="Versión" />
-    <input type="number" id="año" placeholder="Año" required />
-    <input type="number" id="km" placeholder="Kilómetros" required />
-    <select id="estado">
-      <option value="usado">Usado</option>
-      <option value="nuevo">Nuevo</option>
-    </select>
-    <input type="text" id="color" placeholder="Color" required />
-    <select id="combustible">
-      <option value="nafta">Nafta</option>
-      <option value="diesel">Diesel</option>
-    </select>
-    <input type="number" id="precio" placeholder="Precio" required />
-    <button type="submit">Guardar</button>
-  </form>
+    <!-- Formulario para agregar/editar autos -->
+    <form id="autoForm" class="mb-4">
+      <div class="form-group">
+        <input type="text" class="form-control" id="marca" placeholder="Marca" required />
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control" id="modelo" placeholder="Modelo" required />
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control" id="version" placeholder="Versión" />
+      </div>
+      <div class="form-group">
+        <input type="number" class="form-control" id="año" placeholder="Año" required />
+      </div>
+      <div class="form-group">
+        <input type="number" class="form-control" id="km" placeholder="Kilómetros" required />
+      </div>
+      <div class="form-group">
+        <select class="form-control" id="estado">
+          <option value="usado">Usado</option>
+          <option value="nuevo">Nuevo</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control" id="color" placeholder="Color" required />
+      </div>
+      <div class="form-group">
+        <select class="form-control" id="combustible">
+          <option value="nafta">Nafta</option>
+          <option value="diesel">Diesel</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <input type="number" class="form-control" id="precio" placeholder="Precio" required />
+      </div>
+      <button type="submit" class="btn btn-primary">Guardar</button>
+    </form>
 
-  <!-- Tabla para mostrar autos -->
-  <table border="1">
-    <thead>
-      <tr>
-        <th>Marca</th>
-        <th>Modelo</th>
-        <th>Año</th>
-        <th>Acciones</th>
-      </tr>
-    </thead>
-    <tbody id="autosTable"></tbody>
-  </table>
+    <!-- Tabla para mostrar autos -->
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Marca</th>
+          <th>Modelo</th>
+          <th>Año</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="autosTable"></tbody>
+    </table>
+  </div>
 
   <script>
     const autoForm = document.getElementById('autoForm');
@@ -58,8 +79,8 @@
             <td>${auto.modelo}</td>
             <td>${auto.año}</td>
             <td>
-              <button onclick="editAuto('${auto._id}')">Editar</button>
-              <button onclick="deleteAuto('${auto._id}')">Eliminar</button>
+              <button class="btn btn-warning" onclick="editAuto('${auto._id}')">Editar</button>
+              <button class="btn btn-danger" onclick="deleteAuto('${auto._id}')">Eliminar</button>
             </td>
           </tr>
         `).join('');
