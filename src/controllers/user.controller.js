@@ -1,4 +1,27 @@
 import User from '../models/user.model.js';
+import jwt from 'jsonwebtoken';
+
+
+export async function login(req, res) {
+  const { email, password } = req.body;
+
+  try {
+      const user = await User.findOne({ email });
+      if (!user || !(await user.comparePassword(password))) {
+          return res.status(400).json({ message: 'Credenciales inválidas' });
+      }
+
+      // Generar token JWT
+      const token = jwt.sign({ id: user._id }, process.env.TOKEN_SECRET, { expiresIn: '1h' });
+
+      // Enviar token al cliente
+      res.header('auth-token', token).json({ token, message: 'Inicio de sesión exitoso' });
+  } catch (error) {
+      console.error('Error al iniciar sesión:', error);
+      res.status(500).json({ message: 'Error en el servidor' });
+  }
+}
+
 
 export async function getAllUsers(req, res) {
   try {
@@ -37,4 +60,5 @@ export default {
   getAllUsers,
   getUserById,
   deleteUser,
+  login,
 };
