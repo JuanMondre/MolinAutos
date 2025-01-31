@@ -5,7 +5,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 import errorHandler from './middlewares/errorHandler.js';
 import logger from './utils/logger.js'; // Asegúrate de que este logger esté bien configurado
-import verifyToken from './middlewares/authMiddleware.js';
+import authenticate from './middlewares/authMiddleware.js';
 import connectDB from './config/db.js';
 import path from 'path'; 
 import { fileURLToPath } from 'url';
@@ -62,7 +62,7 @@ app.post('/login', passport.authenticate('local', {
 
 
 // Rutas protegidas
-app.get('/admin',verifyToken, (req, res) => {
+app.get('/admin', authenticate, (req, res) => {
   res.sendFile('./public/admin.html'); // Cambia esto por la ruta a tu archivo HTML de administración
 });
 

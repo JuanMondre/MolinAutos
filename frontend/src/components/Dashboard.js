@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
+import { useAuth } from '../context/AuthProvider';
 
 const Dashboard = () => {
+  const { logout } = useAuth();
+
   const [formData, setFormData] = useState({
     marca: '',
     modelo: '',
@@ -141,7 +144,9 @@ const Dashboard = () => {
             onChange={handleChange}
           />
         </div>
-
+        <button className="btn btn-danger mt-3" onClick={logout}>
+        Cerrar sesión
+        </button>
         <button type="submit" className="btn btn-primary">Agregar Auto</button>
       </form>
     </div>

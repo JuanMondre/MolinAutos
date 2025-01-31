@@ -1,7 +1,6 @@
-// src/App.js
-
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { AuthProvider, useAuth } from './context/AuthProvider';
 import Footer from './components/Footer.js';
 import Login from './components/Login.js';
 import Dashboard from './components/Dashboard.js';
@@ -11,19 +10,15 @@ import NotFoundPage from './pages/NotFoundPage.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
-// Función para verificar si el usuario está autenticado
-const isAuthenticated = () => {
-  return localStorage.getItem('isAdmin') === 'true';
-};
-
 // Componente de ruta privada
 const PrivateRoute = ({ children }) => {
-  return isAuthenticated() ? children : <Navigate to="/login" />;
+  const { isAuthenticated } = useAuth();
+  return isAuthenticated ? children : <Navigate to="/login" />;
 };
 
 const App = () => {
   return (
-    <Router>
+    <AuthProvider>
       <main>
         <Routes>
           <Route path="/" element={<HomePage />} />
@@ -41,7 +36,7 @@ const App = () => {
         </Routes>
       </main>
       <Footer />
-    </Router>
+    </AuthProvider>
   );
 };
 

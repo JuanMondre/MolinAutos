@@ -43,12 +43,24 @@ export async function deleteProduct(req, res) {
   }
 }
 
+export async function updateProduct(req, res) {
+  try {
+    const { productId } = req.params;
+    const updatedProduct = await Product.findByIdAndUpdate(productId, req.body, { new: true });
+    if (!updatedProduct) {
+      return res.status(404).json({ message: 'Producto no encontrado' });
+    }
+    res.status(200).json(updatedProduct);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+}
+
 // Exportar funciones del controlador
 export default {
   getAllProducts,
   getProductById,
   createProduct,
   deleteProduct,
+  updateProduct,
 };
-
-

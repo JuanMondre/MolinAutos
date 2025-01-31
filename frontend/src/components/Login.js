@@ -1,24 +1,14 @@
-// src/components/Login.js
-
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthProvider';
 
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleLogin = (e) => {
     e.preventDefault();
-
-    // Validación básica
-    if (username === 'admin' && password === '1234') {
-      localStorage.setItem('isAdmin', 'true');
-      navigate('/dashboard');
-    } else {
-      setError('Usuario o contraseña incorrectos');
-    }
+    login(username, password);
   };
 
   return (
@@ -45,7 +35,6 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        {error && <p className="text-danger">{error}</p>}
         <button type="submit" className="btn btn-primary w-100">Ingresar</button>
       </form>
     </div>
