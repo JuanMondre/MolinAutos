@@ -1,15 +1,23 @@
 import express from 'express'; 
-import productController from '../controllers/product.controller.js';
+import {
+    getAllProducts,
+    getProductById,
+    createProduct,
+    deleteProduct,
+    updateProduct
+} from '../controllers/product.controller.js';
 import authenticate from '../middlewares/authMiddleware.js';
 
 const router = express.Router();
 
-// CRUD solo accesible para el admin autenticado
-router.get('/', authenticate, productController.getAllProducts);
-router.get('/:productId', authenticate, productController.getProductById);
-router.post('/', authenticate, productController.createProduct);
-router.put('/:productId', authenticate, productController.updateProduct); // Aquí podría estar el problema
-router.delete('/:productId', authenticate, productController.deleteProduct);
+// Rutas públicas para obtener productos
+router.get('/', getAllProducts); // Acceso público
+router.get('/:productId', getProductById); // Acceso público
+
+// Rutas protegidas para CRUD de productos (solo admin)
+router.post('/', authenticate, createProduct);
+router.put('/:productId', authenticate, updateProduct);
+router.delete('/:productId', authenticate, deleteProduct);
 
 // Dashboard admin (protegido)
 router.get('/admin', authenticate, (req, res) => {

@@ -46,7 +46,7 @@ app.use('/api/users', userRouter);
 
 // Rutas de productos
 import productRouter from './routers/product.router.js';
-app.use('/products', productRouter);
+app.use('/api/products', productRouter);
 
 // Carpeta public
 app.use(express.static('public'));

@@ -3,6 +3,7 @@ import { useAuth } from '../context/AuthProvider';
 
 const Dashboard = () => {
   const { logout } = useAuth();
+  const [alert, setAlert] = useState({ message: 'Auto Agregado al Catalogo', type: ''});
 
   const [formData, setFormData] = useState({
     marca: '',
@@ -32,19 +33,20 @@ const Dashboard = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
+    const token = localStorage.getItem('token');
+  
     try {
       const response = await fetch('http://localhost:5000/api/products', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`, // Formato estándar
         },
         body: JSON.stringify(formData),
       });
-
+  
       if (response.ok) {
-        console.log('Auto agregado:', formData);
-        // Limpiar el formulario
         setFormData({
           marca: '',
           modelo: '',
@@ -63,16 +65,26 @@ const Dashboard = () => {
           imagen: '',
         });
       } else {
-        console.error('Error al agregar auto:', response.statusText);
+        const errorData = await response.json();
+        console.error('Error al agregar auto:', errorData.message);
       }
     } catch (error) {
       console.error('Error en la solicitud:', error);
     }
   };
-
+  
   return (
     <div className="container my-5">
       <h1 className="text-center mb-4">Agregar Auto al Catálogo</h1>
+      
+       {/* Alerta Bootstrap */}
+       {alert.message && (
+        <div className={`alert alert-${alert.type} alert-dismissible fade show`} role="alert">
+          {alert.message}
+          <button type="button" className="btn-close" onClick={() => setAlert({ message: '', type: '' })}></button>
+        </div>
+      )}
+      
       <form onSubmit={handleSubmit}>
         {/** Campos del formulario **/}
         {['marca', 'modelo', 'version', 'anio', 'km', 'motor', 'transmision', 'rendimiento', 'color', 'precio'].map((field) => (

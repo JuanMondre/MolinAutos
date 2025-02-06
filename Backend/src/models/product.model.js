@@ -5,7 +5,7 @@ const productSchema = new mongoose.Schema(
     marca: { type: String, required: true, trim: true },
     modelo: { type: String, required: true, trim: true },
     version: { type: String, trim: true },
-    año: { type: Number, required: true },
+    anio: { type: Number, required: true },
     km: { type: Number, required: true },
     motor: {type: String, required: true},
     transmision: {type: String, required: true},

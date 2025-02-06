@@ -27,9 +27,11 @@ export async function createProduct(req, res) {
     const savedProduct = await product.save();
     res.status(201).json(savedProduct);
   } catch (error) {
+    console.error("Error al guardar:", error.message);
     res.status(400).json({ message: error.message });
   }
 }
+
 
 export async function deleteProduct(req, res) {
   try {

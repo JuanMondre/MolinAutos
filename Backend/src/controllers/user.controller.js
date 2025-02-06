@@ -28,7 +28,7 @@ export async function getUserById(req, res) {
     }
 }
 
-//---------------------------   TODO: eliminar----------------------------- 
+/*
 
 export async function register(req, res) {
     const { username, password } = req.body;
@@ -48,7 +48,7 @@ export async function register(req, res) {
         res.status(500).json({ message: 'Error en el servidor' });
     }
 }
-//-----------------------------------------------------------
+*/
 
 
 // Función para eliminar un usuario
@@ -72,7 +72,6 @@ export async function login(req, res) {
     const { username, password } = req.body;
 
     try {
-        console.log(username, password); // Verifica que se estén recibiendo correctamente
         const user = await User.findOne({ username });
         if (!user || !(await user.comparePassword(password))) {
             return res.status(400).json({ message: 'Credenciales inválidas' });
@@ -81,7 +80,7 @@ export async function login(req, res) {
         const token = jwt.sign({ id: user._id }, process.env.TOKEN_SECRET, { expiresIn: '1h' });
         res.header('auth-token', token).json({ token, message: 'Inicio de sesión exitoso' });
     } catch (error) {
-        console.error('Error al iniciar sesión:', error); // Log para identificar el problema
+        console.error('Error al iniciar sesión:', error); 
         res.status(500).json({ message: 'Error en el servidor' });
     }
 }
@@ -91,7 +90,7 @@ export async function login(req, res) {
 export default {
     getAllUsers,
     getUserById,
-    register,
+    //register,
     deleteUser,
     login,
 };
