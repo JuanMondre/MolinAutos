@@ -21,7 +21,7 @@ const Home = () => {
             <div className="row justify-content-center">
               <div className="col-md-8">
                 <div className="d-flex flex-wrap justify-content-center gap-3">
-                  <a href="#" className="btn btn-dark btn-lg">Busca tu vehículo</a>
+                  <a href="/autos" className="btn btn-dark btn-lg">Busca tu vehículo</a>
                   <a href="#" className="btn btn-dark btn-lg">Pedí tu vehículo</a>
                   <a href="#" className="btn btn-dark btn-lg">Cotiza tu vehículo</a>
                   <a href="#" className="btn btn-dark btn-lg">Consignaciones</a>

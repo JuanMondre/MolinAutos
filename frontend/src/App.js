@@ -4,6 +4,7 @@ import { AuthProvider, useAuth } from './context/AuthProvider';
 import Footer from './components/Footer.js';
 import Login from './components/Login.js';
 import Dashboard from './components/Dashboard.js';
+import AdminCatalogo from './components/AdminCatalogo.js';
 import ProductList from './components/ProductList.js';
 import HomePage from './pages/HomePage.js';
 import NotFoundPage from './pages/NotFoundPage.js';
@@ -31,6 +32,7 @@ const App = () => {
               </PrivateRoute>
             }
           />
+          <Route path="/catalogo" element={<AdminCatalogo />} />
           <Route path="/autos" element={<ProductList />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>

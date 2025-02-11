@@ -3,7 +3,7 @@
 import React from 'react';
 import Navbar from '../components/Navbar.js';
 import Footer from '../components/Footer.js';
-import ProductList from '../components/ProductList.js'; // Importa el nuevo componente
+import ProductList from '../components/ProductList.js'; 
 
 const Autos = () => {
   return (
