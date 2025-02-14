@@ -24,6 +24,7 @@ const AutosList = () => {
 
   return (
     <div className="row">
+    <h1 className="text-center mb-4">Nuestros Autos</h1>
       {autos.map((auto) => (
         <div key={auto._id} className="col-md-4">
           <ProductCard product={auto} />

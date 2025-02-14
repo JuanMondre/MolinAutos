@@ -2,7 +2,6 @@ import express from 'express';
 import session from 'express-session';
 import passport from './config/passport-config.js';
 import dotenv from 'dotenv';
-dotenv.config();
 import errorHandler from './middlewares/errorHandler.js';
 import logger from './utils/logger.js'; // Asegúrate de que este logger esté bien configurado
 import authenticate from './middlewares/authMiddleware.js';
@@ -10,10 +9,11 @@ import connectDB from './config/db.js';
 import path from 'path'; 
 import { fileURLToPath } from 'url';
 import cors from 'cors';
+import multer from './config/multerConfig.js';
+dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
 const app = express();
 const PORT = process.env.PORT || 8080;
 
@@ -23,6 +23,8 @@ const sessionSecret = process.env.SESSION_SECRET;
 //Configuracion del middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use('/public', express.static(path.join(__dirname, 'public')));
+app.use(cors());
 app.use(session({
   secret: sessionSecret, // Cambia esto por una cadena secreta segura
   resave: false,
@@ -31,10 +33,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(cors({
-  origin: 'http://localhost:3000', // Cambia esto según el dominio del frontend
-  credentials: true, // Permitir cookies o sesiones si usas passport
-}));
+app.use('/images', express.static('public/images'));
 
 // Middleware de manejo de errores
 app.use(errorHandler);

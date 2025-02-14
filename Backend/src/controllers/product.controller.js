@@ -21,13 +21,47 @@ export async function getProductById(req, res) {
   }
 }
 
+
 export async function createProduct(req, res) {
   try {
-    const product = new Product(req.body);
+
+    if (!req.body || Object.keys(req.body).length === 0) {
+      return res.status(400).json({ message: "El cuerpo de la solicitud está vacío" });
+    }
+
+    // Convierte valores numéricos
+    const anio = Number(req.body.anio) || null;
+    const km = Number(req.body.km) || null;
+    const precio = Number(req.body.precio) || null;
+
+    if (!req.body.marca || !req.body.modelo || !anio || !km || !precio) {
+      return res.status(400).json({ message: "Faltan datos obligatorios en la solicitud" });
+    }
+
+    const productData = {
+      marca: req.body.marca,
+      modelo: req.body.modelo,
+      version: req.body.version || '',
+      anio,
+      km,
+      motor: req.body.motor,
+      transmision: req.body.transmision,
+      rendimiento: req.body.rendimiento,
+      caracteristicas: req.body.caracteristicas,
+      estado: req.body.estado || 'usado',
+      color: req.body.color,
+      combustible: req.body.combustible,
+      precio,
+      comentario: req.body.comentario,
+      imagen: req.file ? `images/${req.file.filename}` : null,
+    };
+
+
+    const product = new Product(productData);
     const savedProduct = await product.save();
     res.status(201).json(savedProduct);
   } catch (error) {
-    console.error("Error al guardar:", error.message);
+    console.error("Error al guardar:", error);
     res.status(400).json({ message: error.message });
   }
 }
@@ -48,7 +82,11 @@ export async function deleteProduct(req, res) {
 export async function updateProduct(req, res) {
   try {
     const { productId } = req.params;
-    const updatedProduct = await Product.findByIdAndUpdate(productId, req.body, { new: true });
+    const productData = req.body;
+    if (req.file) {
+      productData.imagen = `/images/${req.file.filename}`; // Ruta de la nueva imagen
+    }
+    const updatedProduct = await Product.findByIdAndUpdate(productId, productData, { new: true });
     if (!updatedProduct) {
       return res.status(404).json({ message: 'Producto no encontrado' });
     }

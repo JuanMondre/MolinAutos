@@ -1,14 +1,11 @@
 import React from 'react';
-import Navbar from '../components/Navbar.js';
 import Carousel from '../components/Carousel.js';
 import AboutUs from '../components/AboutUs.js';
-import Footer from '../components/Footer.js';
 import Location from '../components/Location.js';
 
 const Home = () => {
   return (
     <>
-      <Navbar />
       <main>
         <Carousel />
         <section className="titulo">
@@ -33,7 +30,6 @@ const Home = () => {
         <AboutUs />
         <Location />
       </main>
-      <Footer />
     </>
   );
 };

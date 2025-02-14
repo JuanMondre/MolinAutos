@@ -7,6 +7,7 @@ import Dashboard from './components/Dashboard.js';
 import AdminCatalogo from './components/AdminCatalogo.js';
 import ProductList from './components/ProductList.js';
 import HomePage from './pages/HomePage.js';
+import Navbar from './components/Navbar.js';
 import NotFoundPage from './pages/NotFoundPage.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
@@ -20,6 +21,7 @@ const PrivateRoute = ({ children }) => {
 const App = () => {
   return (
     <AuthProvider>
+    <Navbar />
       <main>
         <Routes>
           <Route path="/" element={<HomePage />} />

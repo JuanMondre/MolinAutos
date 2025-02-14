@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 const AdminCatalogo = () => {
   const [autos, setAutos] = useState([]);
   const [editAuto, setEditAuto] = useState(null);
+  const [file, setFile] = useState(null);
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
 
@@ -37,11 +38,18 @@ const AdminCatalogo = () => {
   const handleUpdate = async (e) => {
     e.preventDefault();
 
+    const formData = new FormData();
+    Object.keys(editAuto).forEach(key => {
+      formData.append(key, editAuto[key]);
+    });
+    if (file) {
+      formData.append('imagen', file);
+    }
+
     try {
       const response = await fetch(`http://localhost:5000/api/products/${editAuto._id}`, {
         method: 'PUT',
         headers: {
-          'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify(editAuto)
@@ -50,6 +58,7 @@ const AdminCatalogo = () => {
       if (response.ok) {
         setAutos(autos.map(a => (a._id === editAuto._id ? editAuto : a)));
         setEditAuto(null);
+        setFile(null);
       }
     } catch (error) {
       console.error('Error al actualizar:', error);
@@ -58,7 +67,11 @@ const AdminCatalogo = () => {
 
   return (
     <div className="container my-5">
+
       <h1 className="text-center mb-4">Catálogo de Autos</h1>
+      <button type="button" className="btn btn-secondary" onClick={() => navigate('/dashboard')}>
+            Agregar autos
+          </button>
 
       {editAuto && (
         <div className="card p-3 mb-4">
@@ -84,7 +97,7 @@ const AdminCatalogo = () => {
             </select>
             <input type="number" className="form-control mb-2" value={editAuto.precio} onChange={(e) => setEditAuto({ ...editAuto, precio: Number(e.target.value) })} placeholder="Precio" />
             <textarea className="form-control mb-2" value={editAuto.comentario} onChange={(e) => setEditAuto({ ...editAuto, comentario: e.target.value })} placeholder="Comentario"></textarea>
-            <input type="text" className="form-control mb-2" value={editAuto.imagen} onChange={(e) => setEditAuto({ ...editAuto, imagen: e.target.value })} placeholder="Imagen (URL)" />
+            <input type="file" className="form-control mb-2" onChange={(e) => setFile(e.target.files[0])} accept="image/*" />
             <button type="submit" className="btn btn-success me-2">Guardar</button>
             <button type="button" className="btn btn-danger" onClick={() => setEditAuto(null)}>Cancelar</button>
           </form>
