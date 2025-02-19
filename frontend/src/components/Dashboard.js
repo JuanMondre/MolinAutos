@@ -100,9 +100,11 @@ const Dashboard = () => {
   return (
     <div className="container my-5">
       <h1 className="text-center mb-4">Agregar Auto al Catálogo</h1>
-      <button type="button" className="btn btn-secondary" onClick={() => navigate('/catalogo')}>
+      <button type="button" className="btn btn-primary" onClick={() => navigate('/catalogo')}>
         Ver Catálogo de Autos
-      </button>
+        </button>
+
+      <button className="btn btn-danger" style={{ marginLeft: "50%" }} onClick={logout}>Cerrar sesión</button>
 
       {alert.message && (
         <div className={`alert alert-${alert.type} alert-dismissible fade show`} role="alert">
@@ -190,7 +192,6 @@ const Dashboard = () => {
 
         <div className="d-flex justify-content-between">
           <button type="submit" className="btn btn-primary">Agregar Auto</button>
-          <button className="btn btn-danger" onClick={logout}>Cerrar sesión</button>
         </div>
       </form>
     </div>

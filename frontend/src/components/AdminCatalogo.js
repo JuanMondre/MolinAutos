@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthProvider';
 
 const AdminCatalogo = () => {
+  const { logout } = useAuth();
   const [autos, setAutos] = useState([]);
   const [editAuto, setEditAuto] = useState(null);
   const [file, setFile] = useState(null);
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
+
+  
 
   useEffect(() => {
     fetch('http://localhost:5000/api/products', {
@@ -20,8 +24,8 @@ const AdminCatalogo = () => {
 
   const validateForm = () => {
     const requiredFields = [
-      "marca", "modelo", "version", "anio", "km", "motor", "transmision", 
-      "rendimiento", "caracteristicas", "estado", "color", "combustible", 
+      "marca", "modelo", "version", "anio", "km", "motor", "transmision",
+      "rendimiento", "caracteristicas", "estado", "color", "combustible",
       "precio", "comentario"
     ];
 
@@ -93,8 +97,12 @@ const AdminCatalogo = () => {
   return (
     <div className="container my-5">
       <h1 className="text-center mb-4">Catálogo de Autos</h1>
-      <button type="button" className="btn btn-secondary" onClick={() => navigate('/dashboard')}>
+      <button type="button" className="btn btn-primary" onClick={() => navigate('/dashboard')}>
         Agregar autos
+      </button>
+
+      <button className="btn btn-danger" style={{ marginLeft: "50%" }} onClick={logout}>
+        Cerrar Sesión
       </button>
 
       {editAuto && (
