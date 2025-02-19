@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 const Dashboard = () => {
   const { logout } = useAuth();
   const navigate = useNavigate();
-  const [showCatalog, setShowCatalog] = useState(false);
   const [alert, setAlert] = useState({ message: '', type: '' });
 
   const [formData, setFormData] = useState({
@@ -30,7 +29,7 @@ const Dashboard = () => {
     const { name, value, type, files } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: type === 'file' ? files[0] : value, // Manejar archivos
+      [name]: type === 'file' ? files[0] : value,
     }));
   };
 
@@ -43,7 +42,6 @@ const Dashboard = () => {
       return;
     }
 
-    // Validar los campos numéricos
     if (isNaN(formData.anio) || isNaN(formData.km) || isNaN(formData.precio)) {
       setAlert({ message: 'Por favor, ingresa valores numéricos válidos en los campos "Año", "Kilómetros" y "Precio".', type: 'danger' });
       return;
@@ -52,9 +50,9 @@ const Dashboard = () => {
     const data = new FormData();
     Object.keys(formData).forEach((key) => {
       if (['anio', 'km'].includes(key)) {
-        data.append(key, parseInt(formData[key], 10)); // Convertir a entero
+        data.append(key, parseInt(formData[key], 10));
       } else if (key === 'precio') {
-        data.append(key, parseFloat(formData[key])); // Convertir a decimal
+        data.append(key, parseFloat(formData[key]));
       } else if (key === 'imagen' && formData.imagen) {
         data.append(key, formData.imagen);
       } else {
@@ -66,14 +64,13 @@ const Dashboard = () => {
       const response = await fetch('http://localhost:5000/api/products', {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${token}`, // Formato estándar
+          'Authorization': `Bearer ${token}`,
         },
         body: data,
       });
 
       if (response.ok) {
         setAlert({ message: 'Auto agregado con éxito', type: 'success' });
-        // Resetear el formulario
         setFormData({
           marca: '',
           modelo: '',
@@ -104,8 +101,9 @@ const Dashboard = () => {
     <div className="container my-5">
       <h1 className="text-center mb-4">Agregar Auto al Catálogo</h1>
       <button type="button" className="btn btn-secondary" onClick={() => navigate('/catalogo')}>
-            Ver Catálogo de Autos
-          </button>
+        Ver Catálogo de Autos
+      </button>
+
       {alert.message && (
         <div className={`alert alert-${alert.type} alert-dismissible fade show`} role="alert">
           {alert.message}
@@ -116,7 +114,7 @@ const Dashboard = () => {
       <form onSubmit={handleSubmit}>
         {['marca', 'modelo', 'version', 'anio', 'km', 'motor', 'transmision', 'rendimiento', 'color', 'precio'].map((field) => (
           <div className="mb-3" key={field}>
-            <label htmlFor={field} className="form-label">
+            <label htmlFor={field} className="form-label d-block fw-bold">
               {field.charAt(0).toUpperCase() + field.slice(1)}
             </label>
             <input
@@ -132,7 +130,7 @@ const Dashboard = () => {
         ))}
 
         <div className="mb-3">
-          <label htmlFor="estado" className="form-label">Estado</label>
+          <label htmlFor="estado" className="form-label d-block fw-bold">Estado</label>
           <select id="estado" name="estado" className="form-select" value={formData.estado} onChange={handleChange}>
             <option value="usado">Usado</option>
             <option value="nuevo">Nuevo</option>
@@ -140,7 +138,7 @@ const Dashboard = () => {
         </div>
 
         <div className="mb-3">
-          <label htmlFor="combustible" className="form-label">Combustible</label>
+          <label htmlFor="combustible" className="form-label d-block fw-bold">Combustible</label>
           <select id="combustible" name="combustible" className="form-select" value={formData.combustible} onChange={handleChange} required>
             <option value="">Seleccionar</option>
             <option value="nafta">Nafta</option>
@@ -149,7 +147,7 @@ const Dashboard = () => {
         </div>
 
         <div className="mb-3">
-          <label htmlFor="caracteristicas" className="form-label">Características</label>
+          <label htmlFor="caracteristicas" className="form-label d-block fw-bold">Características</label>
           <textarea
             id="caracteristicas"
             name="caracteristicas"
@@ -161,7 +159,7 @@ const Dashboard = () => {
         </div>
 
         <div className="mb-3">
-          <label htmlFor="comentario" className="form-label">Comentario</label>
+          <label htmlFor="comentario" className="form-label d-block fw-bold">Comentario</label>
           <textarea
             id="comentario"
             name="comentario"
@@ -173,7 +171,7 @@ const Dashboard = () => {
         </div>
 
         <div className="mb-3">
-          <label htmlFor="imagen" className="form-label">Subir Imagen</label>
+          <label htmlFor="imagen" className="form-label d-block fw-bold">Subir Imagen</label>
           <input
             type="file"
             id="imagen"
@@ -183,11 +181,13 @@ const Dashboard = () => {
             accept="image/*"
           />
         </div>
+
         {formData.imagen && (
-  <div className="mb-3">
-    <img src={URL.createObjectURL(formData.imagen)} alt="Vista previa" className="img-thumbnail" width="200" />
-  </div>
-)}
+          <div className="mb-3">
+            <img src={URL.createObjectURL(formData.imagen)} alt="Vista previa" className="img-thumbnail" width="200" />
+          </div>
+        )}
+
         <div className="d-flex justify-content-between">
           <button type="submit" className="btn btn-primary">Agregar Auto</button>
           <button className="btn btn-danger" onClick={logout}>Cerrar sesión</button>
