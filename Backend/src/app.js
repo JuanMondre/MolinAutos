@@ -22,8 +22,8 @@ const sessionSecret = process.env.SESSION_SECRET;
 //Configuracion del middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use('/public', express.static(path.join(__dirname, 'public')));
 app.use(cors());
+app.use('/public', express.static(path.join(__dirname, 'public')));
 app.use(session({
   secret: sessionSecret, // Cambia esto por una cadena secreta segura
   resave: false,
@@ -31,8 +31,6 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-
-app.use('/images', express.static('public/images'));
 
 // Middleware de manejo de errores
 app.use(errorHandler);

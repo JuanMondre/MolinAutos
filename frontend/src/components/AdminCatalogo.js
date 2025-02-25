@@ -67,12 +67,18 @@ const AdminCatalogo = () => {
     }
 
     const formData = new FormData();
+   
     Object.keys(editAuto).forEach(key => {
-      formData.append(key, editAuto[key]);
+      if (key !== 'imagen') { // Evitar conflictos con el campo de la imagen
+        formData.append(key, editAuto[key]);
+      }
     });
-    if (file) {
-      formData.append('imagen', file);
-    }
+
+
+  // Si hay una imagen nueva, agregarla al FormData
+  if (file) {
+    formData.append('imagen', file);
+  }
 
     try {
       const response = await fetch(`http://localhost:5000/api/products/${editAuto._id}`, {
@@ -84,10 +90,13 @@ const AdminCatalogo = () => {
       });
 
       if (response.ok) {
+        const editAuto = await response.json(); // Recibir la respuesta del backend
         setAutos(autos.map(a => (a._id === editAuto._id ? editAuto : a)));
         setEditAuto(null);
         setFile(null);
         setErrors({}); // Reiniciar errores al actualizar
+      } else {
+        console.error("Error en la actualización:", await response.text());
       }
     } catch (error) {
       console.error('Error al actualizar:', error);

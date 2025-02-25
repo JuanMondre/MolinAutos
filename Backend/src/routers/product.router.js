@@ -17,7 +17,7 @@ router.get('/:productId', getProductById); // Acceso público
 
 // Rutas protegidas para CRUD de productos (solo admin)
 router.post('/', authenticate, upload.single('imagen') , createProduct);
-router.put('/:productId', authenticate, upload.single('image'),updateProduct);
+router.put('/:productId', authenticate, upload.single('imagen'),updateProduct);
 router.delete('/:productId', authenticate, deleteProduct);
 
 // Dashboard admin (protegido)

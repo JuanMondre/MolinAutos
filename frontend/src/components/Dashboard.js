@@ -106,12 +106,6 @@ const Dashboard = () => {
 
       <button className="btn btn-danger" style={{ marginLeft: "50%" }} onClick={logout}>Cerrar sesión</button>
 
-      {alert.message && (
-        <div className={`alert alert-${alert.type} alert-dismissible fade show`} role="alert">
-          {alert.message}
-          <button type="button" className="btn-close" onClick={() => setAlert({ message: '', type: '' })}></button>
-        </div>
-      )}
 
       <form onSubmit={handleSubmit}>
         {['marca', 'modelo', 'version', 'anio', 'km', 'motor', 'transmision', 'rendimiento', 'color', 'precio'].map((field) => (
@@ -190,6 +184,12 @@ const Dashboard = () => {
           </div>
         )}
 
+      {alert.message && (
+        <div className={`alert alert-${alert.type} alert-dismissible fade show`} role="alert">
+          {alert.message}
+          <button type="button" className="btn-close" onClick={() => setAlert({ message: '', type: '' })}></button>
+        </div>
+      )}
         <div className="d-flex justify-content-between">
           <button type="submit" className="btn btn-primary">Agregar Auto</button>
         </div>

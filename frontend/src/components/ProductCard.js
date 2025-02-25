@@ -9,15 +9,19 @@ const ProductCard = ({ product }) => {
   const handleClose = () => setShowModal(false);
 
   const { marca, modelo, version, motor, transmision, rendimiento, caracteristicas, precio, comentario, imagen } = product;
+  const imageUrl = `http://localhost:5000/public/${imagen}`; 
+
 
   return (
     <div className="card shadow-sm mb-4">
-      <img 
-        src={imagen || "https://via.placeholder.com/300"} 
-        alt={`${marca} ${modelo}`} 
-        className="card-img-top" 
-        style={{ height: '250px', objectFit: 'cover' }} 
-      />
+       {imagen && ( // Verifica si la imagen existe
+        <img 
+          src={imageUrl} 
+          alt={`${marca} ${modelo}`} 
+          className="card-img-top" 
+          style={{ height: '200px', objectFit: 'cover' }} 
+        />
+      )}
       <div className="card-body">
         <h2 className="card-title">{marca} {modelo} {version && `- ${version}`}</h2>
         <p className="card-text">{comentario}</p>

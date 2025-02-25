@@ -53,13 +53,14 @@ export async function createProduct(req, res) {
       combustible: req.body.combustible,
       precio,
       comentario: req.body.comentario,
-      imagen: req.file ? `images/${req.file.filename}` : null,
+      imagen: req.file ? `img/${req.file.filename}` : null,
     };
 
 
     const product = new Product(productData);
     const savedProduct = await product.save();
     res.status(201).json(savedProduct);
+    console.log(product);
   } catch (error) {
     console.error("Error al guardar:", error);
     res.status(400).json({ message: error.message });
@@ -84,7 +85,7 @@ export async function updateProduct(req, res) {
     const { productId } = req.params;
     const productData = req.body;
     if (req.file) {
-      productData.imagen = `/images/${req.file.filename}`; // Ruta de la nueva imagen
+      productData.imagen = `/img/${req.file.filename}`; // Ruta de la nueva imagen
     }
     const updatedProduct = await Product.findByIdAndUpdate(productId, productData, { new: true });
     if (!updatedProduct) {

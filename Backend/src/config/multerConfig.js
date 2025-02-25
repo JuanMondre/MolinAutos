@@ -10,7 +10,7 @@ const __dirname = path.dirname(__filename);
 // Configurar el almacenamiento de Multer
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    const uploadPath = path.join(__dirname, '../public/images'); // Asegúrate de que esta carpeta exista
+    const uploadPath = path.join(__dirname, '../public/img'); // Asegúrate de que esta carpeta exista
     cb(null, uploadPath);
   },
   filename: (req, file, cb) => {
