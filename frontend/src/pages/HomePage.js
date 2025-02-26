@@ -3,6 +3,7 @@ import Carousel from '../components/Carousel.js';
 import AboutUs from '../components/AboutUs.js';
 import Location from '../components/Location.js';
 
+
 const Home = () => {
   return (
     <>

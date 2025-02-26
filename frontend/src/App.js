@@ -7,6 +7,8 @@ import Dashboard from './components/Dashboard.js';
 import AdminCatalogo from './components/AdminCatalogo.js';
 import ProductList from './components/ProductList.js';
 import HomePage from './pages/HomePage.js';
+import Busqueda from './pages/BusquedaPage.js'
+import Contacto from './pages/Contacto.js';
 import Navbar from './components/Navbar.js';
 import NotFoundPage from './pages/NotFoundPage.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -25,6 +27,8 @@ const App = () => {
       <main>
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path='/busqueda' element={<Busqueda/>} />
+          <Route path='/contacto' element={<Contacto/>} />
           <Route path="/login" element={<Login />} />
           <Route
             path="/dashboard"

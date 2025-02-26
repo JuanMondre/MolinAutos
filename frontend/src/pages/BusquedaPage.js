@@ -1,11 +1,9 @@
 import React from 'react';
-import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
 const Busqueda = () => {
   return (
     <>
-      <Navbar />
       <main>
         <section className="titulo">
           <div className="container my-5">
