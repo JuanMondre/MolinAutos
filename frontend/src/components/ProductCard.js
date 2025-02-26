@@ -1,6 +1,6 @@
 // src/components/ProductCard.js
 import React, { useState } from 'react';
-import { Modal, Button } from 'react-bootstrap'; // Asegúrate de importar correctamente
+import { Modal, Button, Carousel } from 'react-bootstrap';
 
 const ProductCard = ({ product }) => {
   const [showModal, setShowModal] = useState(false);
@@ -9,19 +9,27 @@ const ProductCard = ({ product }) => {
   const handleClose = () => setShowModal(false);
 
   const { marca, modelo, version, motor, transmision, rendimiento, caracteristicas, precio, comentario, imagen } = product;
+  const imagenes = Array.isArray(imagen) ? imagen : [imagen];
   const imageUrl = `http://localhost:5000/public/${imagen}`; 
 
 
   return (
     <div className="card shadow-sm mb-4">
-       {imagen && ( // Verifica si la imagen existe
-        <img 
+       {imagenes.length > 0 && ( // Verifica si la imagen existe
+        <Carousel showThumbs={false}>
+          {imagenes.map((img, index) => (
+        <div key={index}>
+          <img 
           src={imageUrl} 
           alt={`${marca} ${modelo}`} 
           className="card-img-top" 
           style={{ height: '200px', objectFit: 'cover' }} 
         />
-      )}
+        </div>
+       ))}
+       </Carousel>
+       )}
+
       <div className="card-body">
         <h2 className="card-title">{marca} {modelo} {version && `- ${version}`}</h2>
         <p className="card-text">{comentario}</p>
@@ -41,7 +49,13 @@ const ProductCard = ({ product }) => {
           <Modal.Title>{marca} {modelo} - Detalles</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <img src={imagen} alt={modelo} style={{ width: '100%', height: 'auto' }} />
+        <Carousel showThumbs={false}>
+            {imagenes.map((img, index) => (
+              <div key={index}>
+          <img src={`http://localhost:5000/public/${img}`} alt={modelo} style={{ width: '100%', height: 'auto' }} />
+          </div>
+            ))}
+          </Carousel>
           <ul>
             <li><strong>Motor:</strong> {motor}</li>
             <li><strong>Transmisión:</strong> {transmision}</li>
