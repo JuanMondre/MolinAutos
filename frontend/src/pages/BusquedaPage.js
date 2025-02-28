@@ -1,5 +1,4 @@
 import React from 'react';
-import Footer from '../components/Footer';
 
 const Busqueda = () => {
   return (
@@ -16,7 +15,6 @@ const Busqueda = () => {
           </div>
         </section>
       </main>
-      <Footer />
     </>
   );
 };
