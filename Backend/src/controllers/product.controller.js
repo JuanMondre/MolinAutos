@@ -38,6 +38,9 @@ export async function createProduct(req, res) {
       return res.status(400).json({ message: "Faltan datos obligatorios en la solicitud" });
     }
 
+     // Manejo de múltiples imágenes
+     const imagen = req.files ? req.files.map(file => `img/${file.filename}`) : [];
+
     const productData = {
       marca: req.body.marca,
       modelo: req.body.modelo,
@@ -53,7 +56,7 @@ export async function createProduct(req, res) {
       combustible: req.body.combustible,
       precio,
       comentario: req.body.comentario,
-      imagen: req.file ? `img/${req.file.filename}` : null,
+      imagen,
     };
 
 
