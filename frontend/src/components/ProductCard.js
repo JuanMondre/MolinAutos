@@ -7,7 +7,7 @@ const ProductCard = ({ product }) => {
   const handleShow = () => setShowModal(true);
   const handleClose = () => setShowModal(false);
 
-  const { marca, modelo, version, motor, transmision, rendimiento, caracteristicas, precio, comentario, imagen } = product;
+  const { marca, modelo, version, anio, motor, rendimiento, combustible, km, caracteristicas, comentario, imagen } = product;
   const imageUrl = `http://localhost:5000/public/${imagen}`;
   
   const whatsappNumber = "5492645851326";
@@ -26,14 +26,11 @@ const ProductCard = ({ product }) => {
       )}
       <div className="card-body">
         <h2 className="card-title">{marca} {modelo} {version && `- ${version}`}</h2>
-        <p className="card-text">{comentario}</p>
         <ul className="list-unstyled">
-          <li><strong>Motor:</strong> {motor}</li>
-          <li><strong>Transmisión:</strong> {transmision}</li>
-          <li><strong>Rendimiento:</strong> {rendimiento}</li>
-          <li><strong>Características:</strong> {caracteristicas}</li>
+          <li><strong>Año:</strong> {anio}</li>
+          <li><strong>Kilometraje:</strong> {km}km</li>
+          <li><strong>Rendimiento:</strong> {rendimiento} - {combustible}</li>
         </ul>
-        <p><strong>Precio:</strong> ${precio}</p>
         <Button variant="primary" onClick={handleShow} className="me-2">Ver detalles</Button>
         <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="btn btn-success">Consultar Precio</a>
       </div>
@@ -46,11 +43,7 @@ const ProductCard = ({ product }) => {
         <Modal.Body>
           <img src={imageUrl} alt={modelo} style={{ width: '100%', height: 'auto' }} />
           <ul>
-            <li><strong>Motor:</strong> {motor}</li>
-            <li><strong>Transmisión:</strong> {transmision}</li>
-            <li><strong>Rendimiento:</strong> {rendimiento}</li>
-            <li><strong>Características:</strong> {caracteristicas}</li>
-            <li><strong>Precio:</strong> ${precio}</li>
+            <li><strong>Equipamiento:</strong> {caracteristicas}</li>
             <li><strong>Comentario:</strong> {comentario}</li>
           </ul>
         </Modal.Body>

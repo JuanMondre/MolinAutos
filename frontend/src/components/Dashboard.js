@@ -143,7 +143,7 @@ const Dashboard = () => {
         </div>
 
         <div className="mb-3">
-          <label htmlFor="caracteristicas" className="form-label d-block fw-bold">Características</label>
+          <label htmlFor="caracteristicas" className="form-label d-block fw-bold">Equipamiento</label>
           <textarea
             id="caracteristicas"
             name="caracteristicas"
