@@ -6,8 +6,9 @@ import {
     deleteProduct,
     updateProduct
 } from '../controllers/product.controller.js';
+
 import authenticate from '../middlewares/authMiddleware.js';
-import upload from '../config/multerConfig.js';
+import { uploadMultiple } from '../config/multerConfig.js';
 
 const router = express.Router();
 
@@ -16,8 +17,8 @@ router.get('/', getAllProducts); // Acceso público
 router.get('/:productId', getProductById); // Acceso público
 
 // Rutas protegidas para CRUD de productos (solo admin)
-router.post('/', authenticate, upload.array('imagen', 2) , createProduct);
-router.put('/:productId', authenticate, upload.array('imagen', 2),updateProduct);
+router.post('/', authenticate, uploadMultiple , createProduct);
+router.put('/:productId', authenticate, uploadMultiple,updateProduct);
 router.delete('/:productId', authenticate, deleteProduct);
 
 // Dashboard admin (protegido)

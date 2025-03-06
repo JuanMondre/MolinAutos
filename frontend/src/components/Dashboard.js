@@ -22,15 +22,23 @@ const Dashboard = () => {
     combustible: '',
     precio: '',
     comentario: '',
-    imagen: null,
+    imagenes: [],
   });
 
   const handleChange = (e) => {
     const { name, value, type, files } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: type === 'file' ? files[0] : value,
-    }));
+
+    if (type === 'file') {
+      setFormData((prev) => ({
+        ...prev,
+        imagenes: [...prev.imagenes, ...Array.from(files)], // Agrega las nuevas imágenes al array
+      }));
+    } else {
+      setFormData((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -49,12 +57,10 @@ const Dashboard = () => {
 
     const data = new FormData();
     Object.keys(formData).forEach((key) => {
-      if (['anio', 'km'].includes(key)) {
-        data.append(key, parseInt(formData[key], 10));
-      } else if (key === 'precio') {
+      if (['anio', 'km', 'precio'].includes(key)) {
         data.append(key, parseFloat(formData[key]));
-      } else if (key === 'imagen' && formData.imagen) {
-        data.append(key, formData.imagen);
+      } else if (key === 'imagenes' && formData.imagenes.length > 0) {
+        formData.imagenes.forEach((img) => data.append('imagenes', img)); // Agrega todas las imágenes
       } else {
         data.append(key, formData[key]);
       }
@@ -86,7 +92,7 @@ const Dashboard = () => {
           combustible: '',
           precio: '',
           comentario: '',
-          imagen: null,
+          imagenes: [],
         });
       } else {
         const errorData = await response.json();
@@ -102,7 +108,7 @@ const Dashboard = () => {
       <h1 className="text-center mb-4">Agregar Auto al Catálogo</h1>
       <button type="button" className="btn btn-primary" onClick={() => navigate('/catalogo')}>
         Ver Catálogo de Autos
-        </button>
+      </button>
 
       <button className="btn btn-danger" style={{ marginLeft: "50%" }} onClick={logout}>Cerrar sesión</button>
 
@@ -170,26 +176,31 @@ const Dashboard = () => {
           <label htmlFor="imagen" className="form-label d-block fw-bold">Subir Imagen</label>
           <input
             type="file"
-            id="imagen"
-            name="imagen"
+            id="imagenes"
+            name="imagenes"
             className="form-control"
             onChange={handleChange}
             accept="image/*"
+            multiple
           />
         </div>
 
-        {formData.imagen && (
-          <div className="mb-3">
-            <img src={URL.createObjectURL(formData.imagen)} alt="Vista previa" className="img-thumbnail" width="200" />
+        {formData.imagenes.length > 0 && (
+          <div className="mb-3 d-flex flex-wrap">
+            {formData.imagenes.map((img, index) => (
+              <div key={index} className="me-2">
+                <img src={URL.createObjectURL(img)} alt={`Vista previa ${index}`} className="img-thumbnail" width="100" />
+              </div>
+            ))}
           </div>
         )}
 
-      {alert.message && (
-        <div className={`alert alert-${alert.type} alert-dismissible fade show`} role="alert">
-          {alert.message}
-          <button type="button" className="btn-close" onClick={() => setAlert({ message: '', type: '' })}></button>
-        </div>
-      )}
+        {alert.message && (
+          <div className={`alert alert-${alert.type} alert-dismissible fade show`} role="alert">
+            {alert.message}
+            <button type="button" className="btn-close" onClick={() => setAlert({ message: '', type: '' })}></button>
+          </div>
+        )}
         <div className="d-flex justify-content-between">
           <button type="submit" className="btn btn-primary">Agregar Auto</button>
         </div>

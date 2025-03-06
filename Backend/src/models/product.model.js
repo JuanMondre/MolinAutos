@@ -17,7 +17,7 @@ const productSchema = new mongoose.Schema(
     precio: { type: Number, required: true, min: 0 },
     comentario: { type: String, required: true },
     imagen: {
-      type: String, // Ruta relativa para la imagen
+      type: [String], // Ruta relativa para la imagen
       required: false,
     },
   },
