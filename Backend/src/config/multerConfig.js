@@ -25,7 +25,7 @@ const storage = multer.diskStorage({
   },
 });
 
-const upload = multer({ storage, limits: {fileSize: 5 * 1024 * 1024 }, });
+const upload = multer({ storage, limits: {fileSize: 5 * 1024 * 1024 }, }).array('imagenes', 8);
 
 
 // Configuración para subir múltiples imágenes

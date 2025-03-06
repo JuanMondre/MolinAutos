@@ -11,8 +11,6 @@ const AdminCatalogo = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
 
-  
-
   useEffect(() => {
     fetch('http://localhost:5000/api/products', {
       headers: { 'Authorization': `Bearer ${token}` }
@@ -57,7 +55,13 @@ const AdminCatalogo = () => {
   const handleEdit = (auto) => {
     setEditAuto(auto);
     setErrors({}); // Reiniciar errores al editar
+    setFile(null);
   };
+
+  /*const handleRemoveImage = () => {
+    setEditAuto(prev => ({ ...prev, imagen: null }));
+    setFile(null);
+  }; */
 
   const handleUpdate = async (e) => {
     e.preventDefault();
@@ -67,18 +71,18 @@ const AdminCatalogo = () => {
     }
 
     const formData = new FormData();
-   
     Object.keys(editAuto).forEach(key => {
       if (key !== 'imagen') { // Evitar conflictos con el campo de la imagen
         formData.append(key, editAuto[key]);
       }
     });
 
-
-  // Si hay una imagen nueva, agregarla al FormData
-  if (file) {
-    formData.append('imagen', file);
-  }
+    // Si hay una imagen nueva, agregarla al FormData
+    if (file) {
+      formData.append('imagenes', file);
+    } else if (editAuto.imagen === null) {
+      formData.append('imagen', ''); // Indicar que se quiere eliminar la imagen
+    }
 
     try {
       const response = await fetch(`http://localhost:5000/api/products/${editAuto._id}`, {
@@ -170,8 +174,17 @@ const AdminCatalogo = () => {
             <label>Comentario</label>
             <textarea className="form-control mb-2" value={editAuto.comentario} onChange={(e) => setEditAuto({ ...editAuto, comentario: e.target.value })}></textarea>
 
+           
+            {/* Imagen */}
             <label>Imagen</label>
-            <input type="file" className="form-control mb-2" onChange={(e) => setFile(e.target.files[0])} accept="image/*" />
+            {editAuto.imagen && editAuto.imagen.length > 0 && (
+              <div className="mb-2">
+                <img src={`http://localhost:5000/public/${editAuto.imagen[0]}`}
+                  alt="Auto"
+                  style={{ width: "200px", height: "120px", objectFit: "cover" }} />
+              </div>
+            )}
+            <input type="file" className="form-control mb-2" onChange={e => setFile(e.target.files[0])} accept="image/*" />
 
             <button type="submit" className="btn btn-success me-2">Guardar</button>
             <button type="button" className="btn btn-danger" onClick={() => setEditAuto(null)}>Cancelar</button>
@@ -182,6 +195,7 @@ const AdminCatalogo = () => {
       <table className="table table-striped">
         <thead>
           <tr>
+            <th>Imagen</th>
             <th>Marca</th>
             <th>Modelo</th>
             <th>Año</th>
@@ -190,18 +204,27 @@ const AdminCatalogo = () => {
           </tr>
         </thead>
         <tbody>
-          {autos.map((auto) => (
-            <tr key={auto._id}>
-              <td>{auto.marca}</td>
-              <td>{auto.modelo}</td>
-              <td>{auto.anio}</td>
-              <td>${auto.precio}</td>
-              <td>
-                <button className="btn btn-warning me-2" onClick={() => handleEdit(auto)}>Editar</button>
-                <button className="btn btn-danger" onClick={() => handleDelete(auto._id)}>Eliminar</button>
-              </td>
-            </tr>
-          ))}
+          {autos.map((auto) => {
+            const imageUrl = auto.imagen?.length > 0
+              ? `http://localhost:5000/public/${auto.imagen[0]}`
+              : 'https://via.placeholder.com/80';
+
+            return (
+              <tr key={auto._id}>
+                <td>
+                  <img src={imageUrl} alt={auto.marca} style={{ width: "80px", height: "50px", objectFit: "cover" }} />
+                </td>
+                <td>{auto.marca}</td>
+                <td>{auto.modelo}</td>
+                <td>{auto.anio}</td>
+                <td>${auto.precio}</td>
+                <td>
+                  <button className="btn btn-warning me-2" onClick={() => handleEdit(auto)}>Editar</button>
+                  <button className="btn btn-danger" onClick={() => handleDelete(auto._id)}>Eliminar</button>
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>

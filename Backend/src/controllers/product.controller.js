@@ -54,7 +54,7 @@ export async function createProduct(req, res) {
       combustible: req.body.combustible,
       precio,
       comentario: req.body.comentario,
-      imagen: imagenes, 
+      imagenes, 
     };
 
     const product = new Product(productData);

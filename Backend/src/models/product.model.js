@@ -16,7 +16,7 @@ const productSchema = new mongoose.Schema(
     combustible: { type: String, enum: ['nafta', 'diesel'], required: true },
     precio: { type: Number, required: true, min: 0 },
     comentario: { type: String, required: true },
-    imagen: {
+    imagenes: {
       type: [String], // Ruta relativa para la imagen
       required: false,
     },
